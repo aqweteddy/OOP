@@ -1,0 +1,5 @@
+clang: warning: treating 'c-header' input as 'c++-header' when in C++ mode, this behavior is deprecated [-Wdeprecated]
+/Users/User/GoogleDrive/OOP/105/hw5/circularlist.h:11:20: error: use of undeclared identifier 'NULL'
+        head->next=NULL;
+                   ^
+1 error generated.
