@@ -6,8 +6,8 @@
 
 
 # 目錄
-HW1 : 判斷迴文
-HW2 : Locate Word
+* HW1 : 判斷迴文
+* HW2 : Locate Word
 
 # 內容
 ## HW1
