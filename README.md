@@ -185,3 +185,99 @@ makefile, main.cpp, cube.h, cube.cpp, ball.h, ball.cpp
 並讓主程式用public member function去存取或改變member variable。
 
 4.若有作業規定外的功能請附上readme檔，並於檔案內說明。
+
+## HW4
+1. Bag class
+constructor: (3%)
+Bag();
+印出Bag constructed
+建立一個空的背包
+Destructor: (3%)
+印出Bag destructed
+Copy constructor: (6%)
+印出Bag copy constructed
+當一個全新的背包被創建為現有背包的copy時，必須分配足夠的節點(node)來保存原始列表的copy。
+Assignment operator: (6%)
+印出Bag assignment operator
+將等號右側的Bag指派給等號左側的Bag時，
+等號左側的Bag應為等號右側Bag的複本，等號左側的Bag舊有的值不該存在
+
+其中包含的函數有: (32%)
+bool empty() const;
+如果背包是空的就回傳true，否則回傳false
+int size() const;
+回傳背包中物品總數
+int uniqueSize() const;
+回傳背包中相異物品數
+bool insert(const ItemType& value);
+將一個物品value加入背包中，成功加入便回傳true
+int erase(const ItemType& value);
+移除背包中一個物品value，回傳移除的是第幾個物品，若背包中沒這樣物品則回傳0
+int eraseAll(const ItemType& value);
+移除所有物品value，回傳移除的數量
+bool contains(const ItemType& value) const;
+如果背包中包含物品value就回傳true，否則回傳false
+int count(const ItemType& value) const;
+回傳物品value在背包中的數量
+
+Iteration functions: (20%)
+走訪背包中物品所需用到的函式
+雖然投影片上是寫初始化時用手指指到隨意一個物品，走訪時可以用任意順序走訪，next()要指到相異的物品，
+但為了批改方便，大家答案一致，走訪順序就是insert()順序，next()就一路依放入順序指下去，不管是否相異物
+
+void start();
+初始化手指，將手指指到第一個物品
+若包包為空，印Please input item，並且程式不能壞掉
+void next();
+將手指指到下一個物品
+若更動過背包中的物品(insert, erase, eraseAll)，必須先初始化才能使用呼叫next()
+若還未將手指初始化就呼叫next()，印Please initializes，並且程式不能壞掉
+若已經走訪完畢，讓手指不再指向任何物品
+bool ended() const;
+如果手指沒有指向任何物品就回傳true，否則回傳false
+const ItemType& currentValue() const;
+回傳手指指到的物品
+若更動過背包中的物品(insert, erase, eraseAll)，必須先初始化才能使用呼叫currentValue()
+若還未將手指初始化就呼叫currentValue()，印Please initializes，並且程式不能壞掉
+int currentCount() const;
+回傳手指指到的是第幾個物品
+若更動過背包中的物品(insert, erase, eraseAll)，必須先初始化才能使用呼叫currentCount()
+若還未將手指初始化就呼叫currentCount，印Please initializes，回傳0，並且程式不能壞掉
+
+* 注意: Bag中的物品必須用circular doubly-linked list 來連接 (若不是的話，扣30分)
+doubly-linked list 包含一個標示「開頭」用的 dummy element，如下圖所示
+list.png
+list.png (44.04 KiB) 被瀏覽 133 次
+
+
+* 撰寫 destructor 時請注意把所有的元素刪乾淨，避免 memory leak。 (占 5% 分數)
+助教會測試物件 construct 及 destruct 之後的記憶體使用量，來評估是否有 memory leak。
+
+2. non-member functions (20%)
+void combine(Bag<ItemType>& bag1, Bag<ItemType>& bag2, Bag<ItemType>& result);
+result中有bag1和bag2中的所有東西，bag1和bag2原有的物品不能有任何改變
+在這裡就不規定result順序，只要result內物品數量都正確即可
+void subtract(Bag<ItemType>& bag1, Bag<ItemType>& bag2, Bag<ItemType>& result);
+假設bag1中有n1個"duck", bag2中有n2個"duck",如果n1>n2, 
+則result中有n1-n2個"duck"，如果n1<=n2,則result沒有"duck"
+在這裡就不規定result順序，只要result內物品數量都正確即可
+
+3. MakeFile (5%)
+請參考 討論區 及 課業倉儲 的 MakeFile 教學連結，自行撰寫 MakeFile 檔案。
+
+你的 MakeFile 要跟 source code 放在同一個目錄底下，
+並且當使用者輸入 make 時，可以從你的 source code 編譯出執行檔。
+
+[注意事項]
+1.附件附上範例用主程式，提供參考，實際測試時會有更多操作
+
+2.你的source code應該要有:
+makefile, Bag.h, Bag.cpp, main.cpp
+
+3.所有函式名稱都必須與投影片相同
+
+4.所有的member variable都應該設為private,
+並讓主程式用public member function去存取或改變member variable。
+
+5.若有作業規定外的功能請附上readme檔，並於檔案內說明。
+
