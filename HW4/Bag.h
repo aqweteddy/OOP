@@ -1,7 +1,12 @@
 template <class ItemType>
-class Bag{
+class Bag {
+    template <class T>
+    friend void combine(Bag<T>&, Bag<T>&, Bag<T>&);
+    template <class T>
+    friend void subtract(Bag<T>&, Bag<T>&, Bag<T>&);
+
   private:
-    struct list{
+    struct list {
         list* next;
         list* prev;
         ItemType item;
@@ -9,32 +14,27 @@ class Bag{
     list* head;
     list* now;
     int bag_size;
-    template <class T>
-    friend void combine(Bag<T> &, Bag<T> &, Bag<T> &);
-    template <class T>
-    friend void subtract(Bag<T> &, Bag<T> &, Bag<T> &);
-
-  public:
+  
+   public:
     Bag();
     ~Bag();
-    Bag(const Bag &);
-    Bag &operator=(const Bag &);
+    Bag(const Bag&);
+    Bag& operator=(const Bag&);
 
     bool empty() const;
     int size() const;
     int uniqueSize() const;
-    bool insert(const ItemType &);
-    int erase(const ItemType &);
-    int eraseAll(const ItemType &);
-    bool contains(const ItemType &) const;
-    int count(const ItemType &) const;
+    bool insert(const ItemType&);
+    int erase(const ItemType&);
+    int eraseAll(const ItemType&);
+    bool contains(const ItemType&) const;
+    int count(const ItemType&) const;
 
     void start();
     void next();
     bool ended() const;
-    const ItemType &currentValue() const;
+    const ItemType& currentValue() const;
     int currentCount() const;
 
     void clear();
 };
-
