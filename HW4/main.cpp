@@ -28,7 +28,9 @@ int main() {
          << endl;  //如果前面是印a1，這裡就該印a2;如果前面是印a2，這裡就該印a1;
     cout << a.currentCount() << endl;  //指到第幾個物品//印2
     a.next();                          //若已經指到底//手指指到NULL
-
+    cout << "-------Test for self-assign--------" << endl;
+    a = a;
+    cout << a.size() << endl;
     cout << "-------Test for Copy Constructor-------" << endl;
     Bag<string> a_copy = a;  // Copy constructor:複製a//印Bag copy constructor
     cout << a_copy.size() << endl;  //印2
@@ -61,6 +63,7 @@ int main() {
     cout << b.uniqueSize() << endl;  //包包中相異物品數//印4
     cout << b.erase(10) << endl;  //刪除(10)，回傳是第幾個物品//印1
     cout << b.erase(90) << endl;  //印6
+    cout << b.size() << endl; //印5
     cout << b.eraseAll(20) << endl;  //刪除所有(20)，回傳刪除的總數//印3
     cout << b.contains(20) << endl;  //包包中是否包含(20)//印0
     cout << b.count(10) << endl;     //包包中(10)的數量//印1
@@ -95,6 +98,18 @@ int main() {
     cout << "duck: " << c_result.count("duck") << endl;
     cout << "goose: " << c_result.count("goose") << endl;
     cout << "chichen: " << c_result.count("chicken") << endl;
+
+    //測試c1, c_result 為同物的狀況
+    combine(c1, c2, c1);
+    cout << "duck: " << c1.count("duck") << endl;//3
+    cout << "goose: " << c1.count("goose") << endl;//3
+    cout << "chichen: " << c1.count("chicken") << endl;//4
+    
+    subtract(c1, c2, c1);
+    cout << "duck: " << c1.count("duck") << endl;//5
+    cout << "goose: " << c1.count("goose") << endl;//4
+    cout << "chichen: " << c1.count("chicken") << endl;//6
+    c_result.clear();
 
     return 0;  //毀掉幾個就印幾次Bag destructor//印七次Bag constructor
 }

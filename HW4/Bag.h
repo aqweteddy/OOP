@@ -1,6 +1,6 @@
 #include <iostream>
-#include <set>
 #include <map>
+#include <set>
 
 using std::cout;
 using std::endl;
@@ -51,6 +51,9 @@ class Bag {
     }
 
     Bag& operator=(const Bag& b) {
+        if(&b == this) return (*this);
+        clear();
+        
         head = new list;
         bag_size = 0;
         now = NULL;
@@ -73,6 +76,7 @@ class Bag {
         for (list* cur = head->next; cur != head; cur = cur->next) {
             s.insert(cur->item);
         }
+
         return s.size();
     }
 
@@ -91,10 +95,11 @@ class Bag {
     int erase(const ItemType& it) {
         int cnt = 1;
 
-        for (list *cur = head->next; cur != head; cur = cur->next, ++cnt) {
+        for (list* cur = head->next; cur != head; cur = cur->next, ++cnt) {
             if (cur->item == it) {
                 cur->prev->next = cur->next;
                 cur->next->prev = cur->prev;
+                --bag_size;
                 delete (cur);
                 return cnt;
             }
@@ -104,17 +109,19 @@ class Bag {
 
     int eraseAll(const ItemType& it) {
         int cnt = 0;
-        list * cur = head -> next;
+        list* cur = head->next;
 
-        while(cur != head){
-            if(cur -> item == it){
+        while (cur != head) {
+            if (cur->item == it) {
                 ++cnt;
-                list * old = cur;
-                cur = cur -> next;
-                old -> prev -> next = old -> next;
-                old -> next -> prev = old -> prev;
-                delete(old);
-            } else cur = cur -> next;
+                list* old = cur;
+                cur = cur->next;
+                old->prev->next = old->next;
+                old->next->prev = old->prev;
+                delete (old);
+                --bag_size;
+            } else
+                cur = cur->next;
         }
         return cnt;
     }
@@ -164,7 +171,7 @@ class Bag {
 
     int currentCount() const {
         int i = 1;
-        for (list *cur = head->next; cur != now; cur = cur->next, ++i)
+        for (list* cur = head->next; cur != now; cur = cur->next, ++i)
             ;
         return i;
     }
@@ -173,15 +180,18 @@ class Bag {
         for (auto cur = head->next; cur != head; cur = cur->next) delete (cur);
         head->next = head;
         head->prev = head;
+        bag_size = 0;
     }
 };
 
 template <class ItemType>
 void combine(Bag<ItemType>& bag1, Bag<ItemType>& bag2, Bag<ItemType>& result) {
+    Bag<ItemType> res;
     for (auto i = bag2.head->next; bag2.head != i; i = i->next)
-        result.insert(i->item);
+        res.insert(i->item);
     for (auto i = bag1.head->next; bag1.head != i; i = i->next)
-        result.insert(i->item);
+        res.insert(i->item);
+    result = res;
 }
 
 template <class ItemType>
