@@ -72,15 +72,47 @@ class Matrix {
         }
         return b;
     }
-
-
-
+    
     Matrix operator*(const Matrix& b) {
         if (!checkError(b)) return b;
         Matrix c;
-
         c.setSize(stat, n);
-        return b;
+
+        if(stat == 1){
+            for(int i=0; i<n; ++i){
+                for(int j=0; j<=i; ++j){
+                    vector<double> p, q;
+                    p = mat[i];
+                    while(p.size() != n) p.push_back(0);
+                    while(q.size() != j) q.push_back(0);
+                    for(int k=j; k<n; ++k){
+                        q.push_back(b.mat[k][j]);
+                    }
+                    c[i][j] = dot(p, q);
+                }
+            }
+        } else {
+            for(auto &v : c.mat){
+                for(auto &k : v) k = 0;
+            }
+            for(int i=0; i<n; ++i){
+                vector<double> p;        
+                for(int k=0; k<i; ++k) p.push_back(0);
+                for(int k=0; k<n-i; ++k) p.push_back(mat[i][k]);
+                int cnt = 0;
+                for(int j=1; j<=n; ++j){
+                    vector<double> q;
+
+                    for(int k=0, m=j-1; k<j; --m, ++k) {
+                        q.push_back(b.mat[k][m]);
+                    }
+                    while(q.size() != n) q.push_back(0);
+                    if(dot(p, q) == 0) continue;
+                    c.mat[i][cnt++] = dot(p, q);
+                }
+            }
+        }
+        return c;
     }
 
     double operator()(const int& i, const int& j) {
@@ -175,8 +207,17 @@ Matrix operator*(double k, const Matrix& rt) {
 }
 
 std::ostream& operator<<(std::ostream& out, const Matrix M) {
+    if(M.stat == 0){
+        for (auto v : M.mat) {
+            for(int i=v.size(); i<M.size(); ++i) out << '0' << '\t';
+            for (auto k : v) out << k << '\t';
+            out << endl;
+        }
+        return out;
+    }
     for (auto v : M.mat) {
         for (auto k : v) out << k << '\t';
+        for (int i = v.size(); i<M.size(); ++i) cout << "0\t";
         out << endl;
     }
     return out;

@@ -1,9 +1,3 @@
-// Main Program Example for HW5
-
-// You can use this file as your main program, or add more functions if you
-// want. Please ***MAKE SURE*** that your class works fine in this main program.
-// TA will test your class by this program with additional test data.
-
 #include <iostream>
 #include "TriangularMatrix.h"
 // ****If you need to include more header files, add it here****
@@ -13,8 +7,9 @@ using std::cout;
 using std::endl;
 
 int main() {
+#ifdef DEBUG
     freopen("test_file", "r", stdin);
-
+#endif
     Matrix M1, M2, M3;
     cout << "* Assign values for matrix M1 *" << endl;
     M1.readMatrix();
@@ -32,7 +27,7 @@ int main() {
 
     cout << "* Assign values for matrix M2 *" << endl;
     M2.readMatrix();
-    cout << "M1 * M2 \n" << M1 * M2 << endl;
+    //cout << "M1 * M2 \n" << M1 * M2 << endl;
     cout << "M1 is: \n" << M1 << endl;
     cout << "M2 is: \n" << M2 << endl;
 
@@ -63,7 +58,7 @@ int main() {
     cout << "M3 = M2 * 5" << endl;
     M3 = M2 * 5;
     cout << "Now M3 is: \n" << M3 << endl;
-    cout << "M3 = M2 * 2 * M1" << endl;
+    //cout << "M3 = M2 * 2 * M1" << endl;
     
     M3 = M2 * 2 * M1;
     cout << "Now M3 is: \n" << M3 << endl;
