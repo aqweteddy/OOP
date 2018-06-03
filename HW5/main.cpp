@@ -60,11 +60,19 @@ int main() {
     M3 = M2 * 5;
     cout << "Now M3 is: \n" << M3 << endl;
     //cout << "M3 = M2 * 2 * M1" << endl;
-    
+   
+   	cout << "M3 = M2 * 2 * M1" << endl;	
     M3 = M2 * 2 * M1;
     cout << "Now M3 is: \n" << M3 << endl;
+	
+	cout << "M3 *= M2" << '\n';
+	M3 *= M2;	
+    cout << "Now M3 is: \n" << M3 << endl;
+
+    cout << "zero matrix:" << endl;
+    cout << M1.get_uni_matrix(0) << endl;
     
-    cout << "double d = M1(1,2)" << endl;
+	cout << "double d = M1(1,2)" << endl;
     double d = M1(1, 2);
     cout << "Now d is: " << d << endl << endl;
 

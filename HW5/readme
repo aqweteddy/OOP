@@ -1,0 +1,5 @@
+1. 	make debug : freopen("test_file", "r", stdin) 讀入矩陣資料
+	make : 手動輸入
+2.	throw error
+3.	a.get_zero_matrix: 取得和a同維度、同類型的矩陣 
+4. 	以類似陣列方式存取矩陣值 ex : a[0][0]

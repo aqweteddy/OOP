@@ -35,9 +35,9 @@ class Matrix {
         return c;
     }
 
-    Matrix operator+=(const Matrix& b) {
-        if (!checkError(b)) return b;
-        return (*this) = (*this) + b;
+    void operator+=(const Matrix& b) {
+        if (!checkError(b)) return;
+        (*this) = (*this) + b;
     }
 
     Matrix operator-(const Matrix& b) {
@@ -54,9 +54,9 @@ class Matrix {
         return c;
     }
 
-    Matrix operator-=(const Matrix& b) {
-        if (!checkError(b)) return b;
-        return (*this) = (*this) - b;
+    void operator-=(const Matrix& b) {
+        if (!checkError(b)) return;
+        (*this) = (*this) - b;
     }
 
     Matrix operator*=(double k) {
@@ -72,7 +72,7 @@ class Matrix {
         }
         return b;
     }
-    
+
     Matrix operator*(const Matrix& b) {
         if (!checkError(b)) return b;
         Matrix c;
@@ -92,9 +92,8 @@ class Matrix {
                 }
             }
         } else {
-            for(auto &v : c.mat){
+            for(auto &v : c.mat)
                 for(auto &k : v) k = 0;
-            }
             for(int i=0; i<n; ++i){
                 vector<double> p;        
                 for(int k=0; k<i; ++k) p.push_back(0);
@@ -115,7 +114,12 @@ class Matrix {
         return c;
     }
 
-    double operator()(const int& i, const int& j) {
+    void operator*=(const Matrix& b){
+       if (!checkError(b)) return;
+        (*this)  = (*this) * b;
+    }
+
+    double operator()(const int& i, const int& j) const {
         if (i - 1 > n || j - 1 >= mat[i - 1].size()) {
             cout << "Out of range" << endl;
             return -1;
@@ -123,7 +127,21 @@ class Matrix {
         return mat[i - 1][j - 1];
     }
 
-    vector<double>& operator[](const int& i) { return mat.at(i); }
+    vector<double>& operator[](const int& i) { 
+         if (i >= n) {
+            cout << "Out of range" << endl;
+            return mat.at(0);
+        }
+        return mat.at(i); 
+    }
+
+    Matrix get_uni_matrix(double k){
+        Matrix c;
+        c.setSize(stat, size());
+        for(auto &i : c.mat)
+            for(auto &j : i) j = k; 
+        return c;
+    }
 
     void readMatrix() {
         cout << "upper or lower ? (0 is upper, 1 or others is lower)" << endl;
@@ -156,7 +174,7 @@ class Matrix {
     bool stat;  // 0 is upper,1 1 is lower
     vector<vector<double> > mat;
 
-    void setSize(bool stat, int n) {
+    void setSize(const bool &stat, const int& n) {
         this->n = n;
         this->stat = stat;
         mat.resize(n);
@@ -187,7 +205,7 @@ class Matrix {
         return fl;
     }
 
-    double dot(vector<double> a, vector<double> b) {
+    double dot(const vector<double> &a, const vector<double> b) {
         double sum = 0;
 
         for (int i = 0; i < a.size(); ++i) sum += (a[i] * b[i]);
@@ -217,7 +235,7 @@ std::ostream& operator<<(std::ostream& out, const Matrix M) {
     }
     for (auto v : M.mat) {
         for (auto k : v) out << k << '\t';
-        for (int i = v.size(); i<M.size(); ++i) cout << "0\t";
+        for (int i = v.size(); i<M.size(); ++i) out << "0\t";
         out << endl;
     }
     return out;
