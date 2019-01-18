@@ -49,7 +49,6 @@ public:
     Node* getRChild(); // terminal node 沒有 RChild。
     char getValue();
     TerminalNode* getPointer();
-    
     ~TerminalNode();
 };
 
@@ -59,10 +58,11 @@ private:
     std::map<char, string> code_c_s;
     std::map<string, char> code_s_c;
     void make_code(Node*, string);
+    void clean(Node*);
 public:
     HuffmanTree(const string& s);
     string encode(const string&);
     string decode(const string&);
-
+	void print();
     ~HuffmanTree();
 };

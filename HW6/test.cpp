@@ -1,12 +1,11 @@
 //#include <iostream>
-#include "HuffmanTree.cpp"
+#include "HuffmanTree.h"
 
 using namespace std;
 
 int main(){
-    const string t = "abbccccddddd";
+    const string t = "abbccddddd";
     HuffmanTree hTree = HuffmanTree(t);
-    cout << hTree.encode("abcd") << endl;
-    cout << hTree.decode("011010001") <<endl;
+    hTree.print();
     return 0;
 }
